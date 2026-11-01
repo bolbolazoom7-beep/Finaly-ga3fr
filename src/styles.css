@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-dark: #111116;
+    --surface-dark: #1B1B23;
+    --surface-dark-elevated: #23232E;
+    --border-dark: rgba(255, 255, 255, 0.08);
+    --border-dark-hover: rgba(169, 148, 247, 0.3);
+    
+    --bg-light: #F6F3EE;
+    --surface-light: #FFFFFF;
+    --surface-light-elevated: #EDE8DF;
+    --border-light: rgba(0, 0, 0, 0.08);
+    --border-light-hover: rgba(169, 148, 247, 0.4);
+
+    --accent-violet: #A994F7;
+    --accent-teal: #8BCFC2;
+    --text-muted: #A6A2B3;
+  }
+
+  html, body {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    font-family: 'IBM Plex Sans Arabic', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    touch-action: pan-x pan-y;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    overscroll-behavior: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-touch-callout: none !important;
+    -webkit-user-select: none !important;
+    -khtml-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+  }
+
+  /* Prevent text selection and long-press callouts across the whole UI to feel like a native app */
+  *, *::before, *::after {
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Ensure inputs, textareas, and editable areas retain full typing, cursor navigation, and text entry */
+  input,
+  textarea,
+  [contenteditable="true"] {
+    -webkit-touch-callout: default !important;
+    -webkit-user-select: text !important;
+    -moz-user-select: text !important;
+    -ms-user-select: text !important;
+    user-select: text !important;
+  }
+}
+
+.font-ruqaa {
+  font-family: 'Aref Ruqaa', serif;
+}
+
+.font-arabic {
+  font-family: 'IBM Plex Sans Arabic', sans-serif;
+}
+
+.font-sans-en {
+  font-family: 'Inter', sans-serif;
+}
+
+.font-code {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Ultra-smooth 120fps Hardware-Accelerated Scrolling */
+.smooth-scroll-120 {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  overscroll-behavior-y: contain;
+  overscroll-behavior-x: none;
+  scroll-padding-bottom: 2rem;
+  will-change: scroll-position;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Custom delicate quiet-ink scrollbar */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(169, 148, 247, 0.22) transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar,
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track,
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-thumb {
+  background: rgba(169, 148, 247, 0.22);
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: background-color 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover,
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(169, 148, 247, 0.45);
+}
+
+/* Subtle glow effect */
+.glow-ink {
+  box-shadow: 0 0 40px -10px rgba(169, 148, 247, 0.15);
+}
+
+.glow-teal {
+  box-shadow: 0 0 30px -10px rgba(139, 207, 194, 0.18);
+}
+
+/* Atmospheric Ambient Backgrounds with subtle radial lights & dot matrix */
+.bg-ambient-dark {
+  background-color: #0d0d12;
+  background-image:
+    radial-gradient(at 15% 10%, rgba(169, 148, 247, 0.10) 0px, transparent 50%),
+    radial-gradient(at 85% 20%, rgba(139, 207, 194, 0.08) 0px, transparent 45%),
+    radial-gradient(at 50% 85%, rgba(169, 148, 247, 0.06) 0px, transparent 55%),
+    radial-gradient(circle, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 28px 28px;
+  background-attachment: fixed;
+}
+
+.bg-ambient-light {
+  background-color: #F8F6F1;
+  background-image:
+    radial-gradient(at 15% 10%, rgba(169, 148, 247, 0.09) 0px, transparent 50%),
+    radial-gradient(at 85% 20%, rgba(139, 207, 194, 0.08) 0px, transparent 45%),
+    radial-gradient(at 50% 85%, rgba(245, 158, 11, 0.05) 0px, transparent 50%),
+    radial-gradient(circle, rgba(30, 27, 45, 0.035) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 26px 26px;
+  background-attachment: fixed;
+}
+
+@keyframes ambientOrbMotion {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  50% {
+    transform: translate(30px, -25px) scale(1.08);
+  }
+}
+
+.animate-ambient-slow {
+  animation: ambientOrbMotion 16s ease-in-out infinite;
+}
+
+.animate-ambient-reverse {
+  animation: ambientOrbMotion 20s ease-in-out infinite reverse;
+}
+
+/* Markdown content smooth rendering without layout thrashing */
+.markdown-content {
+  contain: layout style;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.markdown-content pre {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.markdown-content table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}

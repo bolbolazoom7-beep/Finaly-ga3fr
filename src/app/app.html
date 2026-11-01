@@ -1,0 +1,404 @@
+<div
+  class="fixed inset-0 h-screen h-[100dvh] max-h-[100dvh] w-full flex flex-col transition-colors duration-200 overflow-hidden"
+  [class.bg-ambient-dark]="chatState.theme() === 'dark'"
+  [class.text-[#E6E4EC]]="chatState.theme() === 'dark'"
+  [class.bg-ambient-light]="chatState.theme() === 'light'"
+  [class.text-[#1C1917]]="chatState.theme() === 'light'"
+>
+  <!-- Ambient Backdrop Graphic Elements (Luminous mesh glow + subtle geometric lattice pattern) -->
+  <div class="pointer-events-none fixed inset-0 overflow-hidden z-0 select-none" aria-hidden="true">
+    <!-- Soft luminous violet gradient orb top-start -->
+    <div
+      class="absolute -top-32 -left-28 w-96 sm:w-[520px] h-96 sm:h-[520px] rounded-full blur-[110px] pointer-events-none animate-ambient-slow"
+      [class]="chatState.theme() === 'dark' ? 'bg-[#A994F7]/18' : 'bg-[#A994F7]/14'"
+    ></div>
+
+    <!-- Soft cyan / teal glow orb center-end -->
+    <div
+      class="absolute top-1/4 -right-28 w-80 sm:w-[480px] h-80 sm:h-[480px] rounded-full blur-[100px] pointer-events-none animate-ambient-reverse"
+      [class]="chatState.theme() === 'dark' ? 'bg-[#8BCFC2]/16' : 'bg-[#8BCFC2]/14'"
+    ></div>
+
+    <!-- Warm soft ambient glow orb bottom-start -->
+    <div
+      class="absolute -bottom-36 left-1/4 w-96 sm:w-[500px] h-96 sm:h-[500px] rounded-full blur-[120px] pointer-events-none animate-ambient-slow"
+      [class]="chatState.theme() === 'dark' ? 'bg-[#A994F7]/12' : 'bg-amber-400/10'"
+    ></div>
+
+    <!-- Subtle geometric lattice pattern overlay -->
+    <svg class="absolute inset-0 w-full h-full opacity-[0.035] dark:opacity-[0.045]" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="lattice-pattern" width="48" height="48" patternUnits="userSpaceOnUse">
+          <path d="M 48 0 L 0 0 0 48" fill="none" stroke="currentColor" stroke-width="0.75" />
+          <circle cx="24" cy="24" r="1" fill="currentColor" opacity="0.8" />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#lattice-pattern)" />
+    </svg>
+  </div>
+
+  <!-- Top Navigation Header (Permanently Anchored & Fixed) -->
+  <header
+    class="shrink-0 z-30 w-full flex items-center justify-between px-3 sm:px-5 py-2 sm:py-2.5 border-b backdrop-blur-xl transition-colors shadow-2xs select-none"
+    [class.bg-[#111116]/90]="chatState.theme() === 'dark'"
+    [class.border-white/5]="chatState.theme() === 'dark'"
+    [class.bg-[#FAF8F5]/95]="chatState.theme() === 'light'"
+    [class.border-black/5]="chatState.theme() === 'light'"
+  >
+    <!-- Left: History toggle & New Chat -->
+    <div class="flex items-center gap-1.5 sm:gap-2">
+      <button
+        type="button"
+        (click)="isHistoryOpen.set(!isHistoryOpen())"
+        class="p-2 rounded-xl border transition-all cursor-pointer flex items-center justify-center"
+        [class.border-white/10]="chatState.theme() === 'dark'"
+        [class.hover:bg-white/5]="chatState.theme() === 'dark'"
+        [class.border-black/10]="chatState.theme() === 'light'"
+        [class.hover:bg-black/5]="chatState.theme() === 'light'"
+        [attr.title]="chatState.language() === 'ar' ? 'سجل المحادثات والمخفية' : 'Conversation history'"
+        [attr.aria-label]="chatState.language() === 'ar' ? 'سجل المحادثات' : 'Conversation history'"
+      >
+        <mat-icon style="font-size: 20px;">history</mat-icon>
+      </button>
+
+      <button
+        type="button"
+        (click)="chatState.startNewConversation()"
+        class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium border transition-all cursor-pointer"
+        [class.border-white/10]="chatState.theme() === 'dark'"
+        [class.hover:bg-white/5]="chatState.theme() === 'dark'"
+        [class.border-black/10]="chatState.theme() === 'light'"
+        [class.hover:bg-black/5]="chatState.theme() === 'light'"
+      >
+        <mat-icon style="font-size: 16px;">add</mat-icon>
+        <span>{{ chatState.language() === 'ar' ? 'محادثة جديدة' : 'New Chat' }}</span>
+      </button>
+
+      <!-- Temporary (Incognito) Chat Toggle Button -->
+      <button
+        type="button"
+        (click)="chatState.toggleTemporaryChat()"
+        class="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-medium border transition-all cursor-pointer"
+        [class]="chatState.isTemporaryChat()
+          ? 'bg-amber-500/20 text-amber-300 border-amber-500/40 shadow-xs'
+          : (chatState.theme() === 'dark' ? 'border-white/10 hover:bg-white/5 text-[#A6A2B3]' : 'border-black/10 hover:bg-black/5 text-stone-700')"
+        [attr.title]="chatState.language() === 'ar' ? 'دردشة مؤقتة (لا تُحفظ في السجل)' : 'Temporary Chat'"
+        [attr.aria-label]="chatState.language() === 'ar' ? 'دردشة مؤقتة' : 'Temporary Chat'"
+      >
+        <mat-icon style="font-size: 16px;">visibility_off</mat-icon>
+        <span class="hidden xs:inline">{{ chatState.language() === 'ar' ? 'دردشة مؤقتة' : 'Incognito' }}</span>
+      </button>
+
+      <!-- Delete / Clear Current Conversation Button (Visible when chat has messages) -->
+      @if (chatState.currentMessages().length > 0) {
+        <button
+          type="button"
+          (click)="onDeleteCurrentChat()"
+          class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl text-xs font-medium border border-rose-500/25 bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 transition-all cursor-pointer shadow-2xs"
+          [attr.title]="chatState.language() === 'ar' ? 'مسح هذه المحادثة بالكامل' : 'Clear this conversation'"
+          [attr.aria-label]="chatState.language() === 'ar' ? 'مسح هذه المحادثة بالكامل' : 'Clear this conversation'"
+        >
+          <mat-icon style="font-size: 15px; width: 15px; height: 15px;">delete_outline</mat-icon>
+          <span class="hidden md:inline">{{ chatState.language() === 'ar' ? 'مسح الدردشة' : 'Clear' }}</span>
+        </button>
+      }
+    </div>
+
+    <!-- Center: Brand Wordmark -->
+    <button
+      type="button"
+      class="flex items-center gap-2 select-none cursor-pointer bg-transparent border-0 p-1 rounded-xl focus:outline-none focus:ring-1 focus:ring-[#A994F7]/50"
+      (click)="chatState.startNewConversation()"
+      [attr.aria-label]="chatState.language() === 'ar' ? 'الرئيسية - محادثة جديدة' : 'Home - New Chat'"
+    >
+      <div
+        class="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-gradient-to-tr from-[#A994F7] to-[#8BCFC2] p-[1px] flex items-center justify-center shadow-xs"
+      >
+        <div class="w-full h-full bg-[#111116] dark:bg-[#111116] light:bg-[#FFFFFF] rounded-[11px] flex items-center justify-center">
+          <span class="font-ruqaa text-[#A994F7] dark:text-[#A994F7] light:text-[#7C5CE6] text-sm sm:text-base font-bold">ج</span>
+        </div>
+      </div>
+      <div class="flex items-baseline gap-1.5">
+        <span class="font-ruqaa text-2xl sm:text-3xl font-bold tracking-wide"
+          [class]="chatState.theme() === 'dark' ? 'text-white' : 'text-stone-900'"
+        >جعفر</span>
+        <span class="text-[10px] sm:text-[11px] font-mono text-[#A6A2B3] dark:text-[#A6A2B3] light:text-stone-500 tracking-wider uppercase font-semibold">AI</span>
+      </div>
+    </button>
+
+    <!-- Right: Theme Switcher, Diagnostics, Settings -->
+    <div class="flex items-center gap-1 sm:gap-1.5">
+      <!-- Quick Theme Toggle Button -->
+      <button
+        type="button"
+        (click)="toggleQuickTheme()"
+        class="p-2 rounded-xl border transition-all cursor-pointer flex items-center justify-center"
+        [class.border-white/10]="chatState.theme() === 'dark'"
+        [class.hover:bg-white/5]="chatState.theme() === 'dark'"
+        [class.border-black/10]="chatState.theme() === 'light'"
+        [class.hover:bg-black/5]="chatState.theme() === 'light'"
+        [attr.title]="chatState.theme() === 'dark' ? 'التبديل إلى الوضع الفاتح' : 'التبديل إلى الوضع الداكن'"
+        [attr.aria-label]="'تبديل مظهر الواجهة'"
+      >
+        <mat-icon style="font-size: 19px;" class="text-amber-400">
+          {{ chatState.theme() === 'dark' ? 'light_mode' : 'dark_mode' }}
+        </mat-icon>
+      </button>
+
+      <!-- Diagnostics Button -->
+      <button
+        type="button"
+        (click)="isDiagnosticsOpen.set(true)"
+        class="p-2 rounded-xl border transition-all cursor-pointer flex items-center justify-center"
+        [class.border-white/10]="chatState.theme() === 'dark'"
+        [class.hover:bg-white/5]="chatState.theme() === 'dark'"
+        [class.border-black/10]="chatState.theme() === 'light'"
+        [class.hover:bg-black/5]="chatState.theme() === 'light'"
+        [attr.title]="chatState.language() === 'ar' ? 'تشخيص النظام' : 'Diagnostics'"
+        [attr.aria-label]="chatState.language() === 'ar' ? 'تشخيص النظام' : 'Diagnostics'"
+      >
+        <mat-icon style="font-size: 19px;" class="text-[#8BCFC2]">troubleshoot</mat-icon>
+      </button>
+
+      <!-- Settings Button -->
+      <button
+        type="button"
+        (click)="isSettingsOpen.set(true)"
+        class="p-2 rounded-xl border transition-all cursor-pointer flex items-center justify-center"
+        [class.border-white/10]="chatState.theme() === 'dark'"
+        [class.hover:bg-white/5]="chatState.theme() === 'dark'"
+        [class.border-black/10]="chatState.theme() === 'light'"
+        [class.hover:bg-black/5]="chatState.theme() === 'light'"
+        [attr.title]="chatState.language() === 'ar' ? 'الإعدادات والتخصيص' : 'Settings'"
+        [attr.aria-label]="chatState.language() === 'ar' ? 'الإعدادات والتخصيص' : 'Settings'"
+      >
+        <mat-icon style="font-size: 19px;" class="text-[#A994F7]">settings</mat-icon>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content Area (Fluid between Fixed Bars) -->
+  <main class="flex-1 min-h-0 flex flex-col w-full max-w-5xl mx-auto relative z-10 overflow-hidden">
+    <!-- Temporary Chat Active Notice Banner -->
+    @if (chatState.isTemporaryChat()) {
+      <div class="shrink-0 mx-3 sm:mx-4 mt-2 px-3.5 py-2 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-200 text-xs flex items-center justify-between shadow-xs z-10">
+        <div class="flex items-center gap-2">
+          <mat-icon style="font-size: 17px;" class="text-amber-400">visibility_off</mat-icon>
+          <span class="font-bold">
+            {{ chatState.language() === 'ar' ? 'الدردشة المؤقتة نشطة — لن تُحفظ رسائل هذه الجلسة في السجل أو الذاكرة' : 'Temporary Chat active — messages will not be saved' }}
+          </span>
+        </div>
+        <button
+          type="button"
+          (click)="chatState.endTemporaryChat()"
+          class="px-2.5 py-1 rounded-lg bg-amber-500/25 hover:bg-amber-500/40 text-amber-100 font-bold text-[11px] cursor-pointer"
+        >
+          {{ chatState.language() === 'ar' ? 'إنهاء المؤقتة' : 'End' }}
+        </button>
+      </div>
+    }
+
+    <!-- Messages Scroll View (120fps Hardware Accelerated Native Feel) -->
+    <div
+      #scrollContainer
+      (scroll)="onScroll($event)"
+      class="flex-1 min-h-0 overflow-y-auto px-3 sm:px-4 py-3 sm:py-5 space-y-4 smooth-scroll-120 custom-scrollbar overscroll-contain relative"
+    >
+      @if (chatState.currentMessages().length === 0) {
+        <!-- Minimalist Home Screen -->
+        <div class="min-h-[50vh] flex flex-col items-center justify-center px-4 text-center select-none animate-in fade-in duration-500">
+          <!-- Signature Premium Visual: Ja3far Central Insignia Emblem -->
+          <div class="relative mb-6 group cursor-default select-none">
+            <!-- Radiant atmospheric bloom -->
+            <div class="w-28 h-28 sm:w-32 sm:h-32 rounded-3xl bg-gradient-to-tr from-[#A994F7]/40 via-[#818CF8]/25 to-[#8BCFC2]/35 blur-2xl absolute -inset-2 opacity-70 group-hover:opacity-95 transition-opacity duration-700 animate-pulse"></div>
+
+            <!-- Emblem Squircle Housing with Metallic Gradient Border -->
+            <div
+              class="relative w-24 h-24 sm:w-28 sm:h-28 rounded-3xl p-[1.5px] bg-gradient-to-br from-[#C084FC] via-[#A994F7]/60 to-[#8BCFC2] shadow-2xl transition-all duration-500 group-hover:scale-105 group-hover:shadow-[0_12px_40px_-5px_rgba(169,148,247,0.4)]"
+            >
+              <!-- Frosted inner glass vessel -->
+              <div
+                class="w-full h-full rounded-[22px] flex flex-col items-center justify-center relative overflow-hidden backdrop-blur-xl border border-white/15"
+                [class]="chatState.theme() === 'dark' ? 'bg-[#14141E]/95 text-white' : 'bg-white/95 text-stone-900'"
+              >
+                <!-- Upper subtle specular glass sheen -->
+                <div class="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/20 to-transparent pointer-events-none"></div>
+
+                <!-- Custom High-Resolution Calligraphic Emblem SVG -->
+                <svg
+                  class="w-14 h-14 sm:w-16 sm:h-16 relative z-10 transition-transform duration-500 group-hover:scale-110 drop-shadow-md"
+                  viewBox="0 0 100 100"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <defs>
+                    <linearGradient id="ja3farPrimaryGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#C084FC" />
+                      <stop offset="45%" stop-color="#A994F7" />
+                      <stop offset="100%" stop-color="#8BCFC2" />
+                    </linearGradient>
+                    <linearGradient id="ja3farNuqtaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#38BDF8" />
+                      <stop offset="50%" stop-color="#8BCFC2" />
+                      <stop offset="100%" stop-color="#FCD34D" />
+                    </linearGradient>
+                    <filter id="nuqtaGlow" x="-30%" y="-30%" width="160%" height="160%">
+                      <feGaussianBlur stdDeviation="2" result="blur" />
+                      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                    </filter>
+                  </defs>
+
+                  <!-- Subtle Orbital Guides & Stars -->
+                  <circle cx="50" cy="50" r="41" stroke="url(#ja3farPrimaryGrad)" stroke-width="1.2" stroke-dasharray="3 5" opacity="0.4" />
+                  <circle cx="50" cy="50" r="45" stroke="currentColor" stroke-width="0.5" opacity="0.12" />
+
+                  <!-- Four cardinal orbiting intelligence sparks -->
+                  <circle cx="50" cy="9" r="2" fill="#8BCFC2" />
+                  <circle cx="91" cy="50" r="1.8" fill="#A994F7" />
+                  <circle cx="50" cy="91" r="2" fill="#C084FC" />
+                  <circle cx="9" cy="50" r="1.8" fill="#FCD34D" />
+
+                  <!-- Elegant Arabic Letterform 'ج' (Ja3far Calligraphy with tapered tail and head flourish) -->
+                  <path
+                    d="M 68 28 C 64 24, 52 23, 40 25 C 33 26, 28 29, 27 33 C 26 37, 30 38, 38 36 C 48 34, 59 34, 62 38 C 64 41, 56 46, 47 50 C 37 54, 27 60, 27 70 C 27 81, 40 88, 57 88 C 73 88, 83 79, 83 67 C 83 58, 76 53, 68 53 C 62 53, 58 56, 58 60 C 58 65, 63 67, 67 67 C 72 67, 75 64, 76 60 C 76 59, 76 58, 76 58 C 76 65, 68 76, 55 76 C 41 76, 36 68, 36 61 C 36 53, 44 47, 54 43 C 65 39, 74 34, 74 29 C 74 27, 71 27, 68 28 Z"
+                    fill="url(#ja3farPrimaryGrad)"
+                  />
+
+                  <!-- Glowing Central Nuqta (نقطة الجيم) - Diamond Star Gemstone -->
+                  <g filter="url(#nuqtaGlow)">
+                    <path d="M 50 56 L 56 62 L 50 68 L 44 62 Z" fill="url(#ja3farNuqtaGrad)" />
+                    <circle cx="50" cy="62" r="1.5" fill="#FFFFFF" />
+                  </g>
+
+                  <!-- Sparkle Star Accent -->
+                  <path d="M 72 19 Q 74 23 78 24 Q 74 25 73 29 Q 72 25 68 24 Q 72 23 72 19 Z" fill="#FCD34D" opacity="0.95" />
+                </svg>
+
+                <!-- Micro Insignia Wordmark Badge -->
+                <span class="relative z-10 text-[9px] font-mono tracking-widest uppercase font-bold text-[#A994F7] opacity-90 mt-0.5">
+                  JA3FAR
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ja3far Wordmark -->
+          <h2
+            class="font-ruqaa text-4xl md:text-5xl font-bold mb-2 tracking-wide"
+            [class]="chatState.theme() === 'dark' ? 'text-white' : 'text-stone-900'"
+          >
+            {{ chatState.personalization().assistantName || 'جعفر' }}
+          </h2>
+
+          <!-- Context-appropriate greeting -->
+          <p class="text-xs sm:text-sm text-[#A6A2B3] dark:text-[#A6A2B3] light:text-stone-600 max-w-md leading-relaxed font-normal">
+            {{
+              chatState.language() === 'ar'
+                ? 'أهلاً بك يا غالي! أنا جعفر، رفيقك ومساعدك الذكي المستقل، جاهز لأي سؤال أو فكرة أو بحث مباشر.'
+                : 'Welcome! I am Ja3far, your private, intelligent assistant ready for questions, analysis, and live updates.'
+            }}
+          </p>
+
+          <!-- Current Cairo Date & Time Badge (Ticks in Real-Time) -->
+          @if (chatState.cairoTime(); as time) {
+            <div class="mt-3 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[11px] font-mono bg-white/5 dark:bg-white/5 light:bg-black/5 text-[#8BCFC2] border border-[#8BCFC2]/20 shadow-xs">
+              <mat-icon style="font-size: 14px; width: 14px; height: 14px;" class="animate-pulse">schedule</mat-icon>
+              <span>{{ time.cairoDateArabic }} • {{ time.cairoTimeArabic }}</span>
+            </div>
+          }
+
+          <!-- Prompt Starters -->
+          <div class="mt-7 grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-w-xl w-full text-right" [dir]="chatState.language() === 'ar' ? 'rtl' : 'ltr'">
+            @for (starter of promptStarters(); track starter.text) {
+              <button
+                type="button"
+                (click)="chatState.sendMessage(starter.text)"
+                class="flex items-center gap-2.5 p-3 rounded-xl border text-xs transition-all cursor-pointer text-start shadow-xs hover:-translate-y-0.5"
+                [class]="chatState.theme() === 'dark'
+                  ? 'bg-[#181820]/70 hover:bg-[#181820] border-white/5 hover:border-[#A994F7]/40 text-[#E6E4EC]'
+                  : 'bg-white hover:bg-[#FAF8F5] border-black/10 hover:border-[#7C5CE6]/40 text-stone-900 shadow-sm'"
+              >
+                <mat-icon style="font-size: 17px; width: 17px; height: 17px;" class="text-[#A994F7] shrink-0">
+                  {{ starter.icon }}
+                </mat-icon>
+                <span class="truncate font-medium">{{ starter.text }}</span>
+              </button>
+            }
+          </div>
+        </div>
+      } @else {
+        <!-- Render Active Messages -->
+        @for (msg of chatState.currentMessages(); track msg.id) {
+          <app-message-item [message]="msg"></app-message-item>
+        }
+      }
+    </div>
+
+    <!-- Floating Jump to Latest Message Button (Smooth 120fps glide) -->
+    @if (showScrollBottom()) {
+      <div class="absolute bottom-24 sm:bottom-28 left-1/2 -translate-x-1/2 z-30 pointer-events-auto">
+        <button
+          type="button"
+          (click)="scrollToBottom(true)"
+          class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium border shadow-lg backdrop-blur-xl transition-all duration-200 cursor-pointer hover:scale-105 active:scale-95"
+          [class]="chatState.theme() === 'dark'
+            ? 'bg-[#181820]/95 border-[#A994F7]/40 text-[#A994F7] hover:bg-[#1E1B2E] shadow-[0_4px_25px_rgba(169,148,247,0.3)]'
+            : 'bg-white/95 border-[#7C5CE6]/30 text-[#7C5CE6] hover:bg-white shadow-[0_4px_25px_rgba(0,0,0,0.12)]'"
+          [attr.aria-label]="chatState.language() === 'ar' ? 'النزول لأحدث رسالة' : 'Scroll to bottom'"
+        >
+          <mat-icon style="font-size: 16px; width: 16px; height: 16px;">arrow_downward</mat-icon>
+          <span>{{ chatState.language() === 'ar' ? 'أحدث رسالة' : 'Latest' }}</span>
+          @if (chatState.isStreaming()) {
+            <span class="w-2 h-2 rounded-full bg-[#8BCFC2] animate-ping ml-0.5"></span>
+          }
+        </button>
+      </div>
+    }
+
+    <!-- Bottom Composer & Privacy Status (Permanently Anchored & Fixed) -->
+    <div
+      class="shrink-0 z-20 w-full max-w-4xl mx-auto pt-1 pb-1 sm:pb-2 border-t border-white/5 dark:border-white/5 light:border-black/5 bg-[#111116]/85 dark:bg-[#111116]/85 light:bg-[#FAF8F5]/90 backdrop-blur-xl"
+    >
+      <app-composer></app-composer>
+
+      <!-- Minimalist privacy assurance & developer credit footer with photo -->
+      <div class="px-4 text-center flex items-center justify-between text-[11px] text-[#A6A2B3] dark:text-[#A6A2B3] light:text-stone-500 font-sans max-w-4xl mx-auto">
+        <span class="flex items-center gap-1">
+          <mat-icon style="font-size: 13px; width: 13px; height: 13px;">lock</mat-icon>
+          <span>{{ chatState.language() === 'ar' ? 'خصوصية فائقة • مشفر ومحمي محلياً' : 'Zero-tracking • Protected' }}</span>
+        </span>
+
+        <button
+          type="button"
+          (click)="isSettingsOpen.set(true)"
+          class="inline-flex items-center gap-1.5 hover:text-[#A994F7] transition-colors cursor-pointer bg-transparent border-0 p-0 text-inherit"
+          [attr.title]="'المطور: بلال أحمد'"
+        >
+          <img
+            src="/assets/aistudio/ChatGPT_Image_27________2026__05_45_12___a5e00d16.png"
+            alt="Belal Ahmed"
+            class="w-4 h-4 rounded-full object-cover object-top border border-[#A994F7]"
+            referrerpolicy="no-referrer"
+          />
+          <span class="font-medium">Developed by Belal Ahmed</span>
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Sidebars and Dialogs -->
+  <app-history-drawer
+    [isOpen]="isHistoryOpen()"
+    (dismiss)="isHistoryOpen.set(false)"
+  ></app-history-drawer>
+
+  <app-settings-dialog
+    [isOpen]="isSettingsOpen()"
+    (dismiss)="isSettingsOpen.set(false)"
+  ></app-settings-dialog>
+
+  <app-diagnostics-modal
+    [isOpen]="isDiagnosticsOpen()"
+    (dismiss)="isDiagnosticsOpen.set(false)"
+  ></app-diagnostics-modal>
+</div>

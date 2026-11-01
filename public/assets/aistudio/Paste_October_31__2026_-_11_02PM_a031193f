@@ -1,0 +1,1433 @@
+JA3FAR AI — THE COMPLETE MASTER BUILD PROMPT
+
+Full Product Engineering, NoTrack.ai Integration, Premium Arabic UI, Real Functionality, Automated Testing, Diagnostics, Recovery, Security, and Deployment
+
+PROJECT NAME: Ja3far AI
+ARABIC NAME: جعفر
+PRIMARY AI SYSTEM: NoTrack.ai
+PRIMARY LANGUAGE: Arabic
+SECONDARY LANGUAGE: English
+PRIMARY TARGET: Mobile-first web application, optimized for Android
+DEPLOYMENT TARGET: GitHub + Cloudflare Pages/Workers, using a verified compatible architecture
+ALTERNATIVE DEPLOYMENT: Azure Static Web Apps only if explicitly selected and properly configured
+PROJECT TYPE: Real production-oriented AI assistant, not a mockup
+
+---
+
+PART 1 — YOUR ROLE AND PRIMARY MISSION
+
+You are the principal software architect, senior full-stack developer, product designer, UI/UX specialist, backend engineer, API integration engineer, security engineer, QA engineer, debugging specialist, and deployment engineer responsible for building Ja3far AI.
+
+Your job is to create the complete application from the actual starting state of the project to a tested, maintainable, deployable result.
+
+Do not merely produce a plan.
+
+Do not merely generate a beautiful interface.
+
+Do not merely create source files and stop.
+
+Inspect the environment, examine the available integration materials, implement the real application, run available commands, test the results, investigate failures, correct the underlying causes, rerun tests, and prepare the deployment.
+
+If tools allow you to create files, edit files, run terminal commands, inspect browser output, or deploy the project, use those capabilities appropriately.
+
+If a tool or permission is unavailable, do as much work as possible and state the exact limitation.
+
+Never claim that a build succeeded, an API worked, an error was fixed, or a deployment was verified unless there is actual evidence.
+
+The final result must be a coherent, complete project with real functionality, not a collection of disconnected examples.
+
+Absolute priorities
+
+1. Ja3far must use the actual, verified NoTrack.ai integration as its primary production AI system.
+2. The application must be genuinely functional, not a static demonstration.
+3. The interface must have a distinctive identity and excellent Arabic typography.
+4. The application must be designed to diagnose and recover from realistic failures.
+5. Security must not be sacrificed to make deployment easier.
+6. Every visible feature must either work or remain hidden.
+7. The application must be testable and maintainable.
+8. Deployment instructions must match the actual code and platform.
+9. All claims about completed work must match the evidence.
+10. All required owner-provided integration information must be collected in the configuration section at the very end of this document.
+
+PART 2 — INSPECT BEFORE IMPLEMENTING
+
+Before changing anything, inspect the actual working environment.
+
+Determine:
+
+- Whether the project already exists.
+- The current repository and project directory.
+- The programming language and framework.
+- The existing package manager and dependency versions.
+- The application entry point.
+- The frontend build tool.
+- Existing backend routes and serverless functions.
+- Existing environment variables and bindings.
+- Existing database and storage configuration.
+- The current deployment target.
+- Existing tests and scripts.
+- Whether a browser or terminal is available.
+- Whether the environment supports actual deployment.
+- Whether official NoTrack.ai integration documentation or code has been supplied.
+
+If the project is empty, create the project from scratch.
+
+If a project already exists, preserve useful code and working features. Do not delete existing work unnecessarily.
+
+Choose a stable, lightweight, well-supported technology stack compatible with the actual environment. If the current project already uses a suitable stack, keep it unless there is a compelling, documented reason to change it.
+
+Do not assume that a particular framework, command, SDK, runtime, hosting feature, or package is available. Verify it.
+
+Avoid unnecessary complexity, excessive dependencies, abandoned packages, incompatible runtime APIs, and undocumented workarounds.
+
+Create a practical implementation checklist, then begin implementation immediately.
+
+Do not stop after presenting the checklist.
+
+PART 3 — NON-NEGOTIABLE NOTRACK.AI INTEGRATION
+
+3.1 NoTrack.ai is the required primary AI system
+
+Ja3far must be designed specifically around the actual NoTrack.ai system supplied by the owner.
+
+NoTrack.ai is not a decorative label, a placeholder, or an optional provider that can silently be replaced with another AI service.
+
+Do not substitute OpenAI, Gemini, Claude, Groq, OpenRouter, a local model, or an unrelated service to make the application appear functional.
+
+Do not assume that the name NoTrack.ai identifies a specific protocol, endpoint, SDK, model, or service architecture without verifying the supplied documentation.
+
+First determine exactly what the supplied NoTrack materials describe.
+
+They may represent an API, an SDK, an integration example, a model identifier, a gateway, or another interface. The implementation must follow the actual evidence.
+
+3.2 Verify the official protocol
+
+Read the official documentation and owner-provided code at the end of this prompt.
+
+Identify and verify:
+
+- The actual API or integration base URL.
+- The endpoint and HTTP method, if applicable.
+- The required authentication method.
+- Required headers.
+- The exact request payload.
+- The expected response structure.
+- The actual model identifier.
+- Whether conversation history is supported.
+- Whether streaming is supported.
+- Whether cancellation is supported.
+- Whether image or document input is supported.
+- Supported parameters.
+- Context and token limits, if documented.
+- Rate limits.
+- Error response formats.
+- SDK initialization requirements.
+- Required runtime and framework constraints.
+- Any restrictions imposed by the service.
+
+Use the exact documented protocol.
+
+Do not invent URLs, model IDs, parameters, SDK methods, response fields, or authentication rules.
+
+Do not assume OpenAI compatibility unless the official documentation explicitly confirms it.
+
+If the integration is compatible with an existing protocol, use that compatibility correctly, including the correct endpoint and model identifier.
+
+If documentation is incomplete, isolate uncertain details in a provider adapter and identify the missing information. Implement verified functionality without pretending that unsupported features exist.
+
+3.3 Provider architecture
+
+Implement a dedicated NoTrack provider adapter.
+
+Keep provider-specific code separate from the interface, conversation state, storage, and diagnostic system.
+
+The adapter must provide the appropriate operations supported by the real integration, such as:
+
+- Initialize the provider.
+- Validate configuration.
+- Test connectivity.
+- Send a conversation request.
+- Parse a response.
+- Stream a response, if supported.
+- Cancel a request, if supported.
+- Normalize provider errors.
+- Return safe diagnostic metadata.
+
+Do not implement unsupported operations simply because they appear in this list.
+
+If NoTrack changes its protocol, the integration should be maintainable without rewriting the entire application.
+
+3.4 Real production behavior
+
+When valid credentials and network access are available, Ja3far must send actual requests to the configured NoTrack system.
+
+Never return a hardcoded sample answer while presenting it as a real AI response.
+
+Never report a successful connection just because the user saved a configuration.
+
+A successful connection test must make a real, documented, non-destructive request.
+
+If credentials are unavailable, the app must still render and allow the owner to configure it. Clearly indicate that the AI connection is not configured.
+
+Mock responses may be used in automated tests, but mock mode must be explicitly identified and must never silently replace production NoTrack requests.
+
+PART 4 — COMPLETE PRODUCT ARCHITECTURE
+
+Create a clean, modular architecture appropriate to the actual framework.
+
+Separate these responsibilities:
+
+1. UI and visual components.
+2. Conversation state.
+3. Message formatting and safe rendering.
+4. NoTrack provider adapter.
+5. Backend API routes.
+6. Authentication and authorization.
+7. AI configuration management.
+8. Conversation persistence.
+9. Diagnostic classification.
+10. Structured logging.
+11. Automated tests.
+12. Deployment configuration.
+
+Use a documented, predictable request flow:
+
+User interface → Ja3far backend → verified NoTrack integration → Ja3far backend → user interface.
+
+For a shared production service, use a backend to protect shared provider credentials.
+
+Do not expose shared API keys in client-side source code or public build artifacts.
+
+If the supplied NoTrack integration explicitly requires a different architecture, explain the implications and use it only when technically justified and appropriately secured.
+
+Do not mix incompatible Cloudflare and Azure configurations. Select a primary deployment architecture based on the actual project and implement it correctly.
+
+PART 5 — DISTINCTIVE VISUAL IDENTITY
+
+5.1 Design direction
+
+Create a distinctive visual identity called Quiet Ink.
+
+The interface should feel calm, editorial, sophisticated, and subtly futuristic.
+
+It must not resemble a generic AI template, a typical admin dashboard, or an overcrowded SaaS landing page.
+
+The design should communicate quality through typography, spacing, proportions, surface treatment, and carefully chosen motion.
+
+Suggested palette:
+
+- Main dark background: "#111116"
+- Dark surface: "#1B1B23"
+- Main light background: "#F6F3EE"
+- Signature violet: "#A994F7"
+- Soft teal accent: "#8BCFC2"
+- Secondary text: "#A6A2B3"
+
+Define semantic color tokens and maintain consistent contrast in every theme.
+
+These values may be refined to improve the finished design, but the visual identity must remain coherent.
+
+5.2 Arabic typography
+
+Use:
+
+- Aref Ruqaa or Aref Ruqaa Ink for the Ja3far wordmark and selected short display text.
+- IBM Plex Sans Arabic or Noto Sans Arabic for readable Arabic interface text.
+- Inter for English text where appropriate.
+
+Requirements:
+
+- Correct Arabic shaping.
+- Proper RTL layout.
+- Natural Arabic line height.
+- No clipped glyphs.
+- No broken punctuation.
+- Correct mixed Arabic-English text.
+- Readable code blocks.
+- Appropriate font fallbacks.
+- Efficient font loading.
+- Graceful behavior if external fonts fail.
+
+Do not use a decorative font for long messages or dense settings screens.
+
+The Ja3far wordmark must be memorable, legible, and carefully spaced.
+
+5.3 Strict minimalism
+
+The home screen should contain only:
+
+- Ja3far wordmark.
+- A short, context-appropriate greeting.
+- A restrained signature visual.
+- The message composer.
+- Compact conversation history access.
+- Compact settings access.
+
+Do not add:
+
+- Long welcome paragraphs.
+- Feature-card grids.
+- Unnecessary marketing sections.
+- Fake statistics.
+- Fake testimonials.
+- Unnecessary badges.
+- Fake model-status indicators.
+- A large footer.
+- Release dates.
+- Unnecessary version labels.
+- Random emoji decorations.
+- A robot mascot.
+- Repetitive glowing borders.
+- An excessive number of gradients.
+- Unnecessary “Powered by AI” text.
+
+The interface must remain uncluttered even when more functionality exists behind settings.
+
+PART 6 — ANIMATION AND MICRO-INTERACTION SYSTEM
+
+Create a reusable, intentional animation system.
+
+Animations should make Ja3far feel responsive and alive without distracting the user or slowing the app.
+
+Implement:
+
+- A subtle wordmark entrance.
+- A restrained greeting and composer entrance.
+- Smooth input focus and blur transitions.
+- Refined send-button feedback.
+- A polished message appearance.
+- A subtle loading or streaming indicator.
+- Smooth history-panel transitions.
+- Clean settings transitions.
+- Theme-switching transitions.
+- Feedback for copy, retry, save, and send actions.
+- Appropriate hover and focus interactions on desktop.
+- Natural touch feedback on mobile.
+- Smooth but brief dialog transitions.
+
+Requirements:
+
+- Prefer transform and opacity animations when practical.
+- Avoid expensive continuous animations.
+- Avoid unnecessary layout recalculations.
+- Do not block typing, scrolling, or sending while animations run.
+- Do not animate every character without a clear purpose.
+- Respect reduced-motion preferences.
+- Reduce decorative animation on low-end devices where appropriate.
+- Stop unnecessary animations when the page is hidden.
+- Provide an attractive static fallback.
+- Ensure animation failures cannot break application functionality.
+
+PART 7 — CORE AI CHAT
+
+Implement a complete conversation experience.
+
+7.1 Composer
+
+Support:
+
+- Multiline input.
+- Arabic and English.
+- Enter-to-send behavior where appropriate.
+- Shift+Enter for a new line on supported keyboards.
+- Automatic height adjustment with a reasonable maximum.
+- Send button.
+- Stop-generation control when supported.
+- Loading state.
+- Disabled state during appropriate operations.
+- Clear validation messages.
+- Preservation of unsent text after recoverable errors.
+- Prevention of accidental duplicate submissions.
+
+Do not clear a message before the request has been safely accepted into the application workflow.
+
+7.2 Messages
+
+Implement:
+
+- User messages.
+- Assistant messages.
+- Conversation context.
+- Streaming only if supported.
+- Safe Markdown rendering.
+- Code blocks.
+- Copy response.
+- Copy code.
+- Retry.
+- Regenerate response.
+- Edit and resend user messages.
+- New conversation.
+- Correct message ordering.
+- Correct handling of empty responses.
+- Correct handling of interrupted responses.
+- Appropriate loading, error, and success states.
+
+Never execute raw HTML returned by the model.
+
+Sanitize Markdown output and validate link protocols.
+
+Do not display internal stack traces, secrets, or sensitive backend information inside chat.
+
+7.3 Conversation correctness
+
+Use stable message and conversation IDs.
+
+Ensure:
+
+- Each request belongs to the correct conversation.
+- Stale responses cannot overwrite a newer conversation.
+- Cancelled requests do not modify the wrong message.
+- Duplicate sends are controlled.
+- Failed requests do not permanently lock the composer.
+- Regeneration uses the correct conversation context.
+- Editing and resending preserve consistent message order.
+
+7.4 Conversation history
+
+Provide a compact history panel with:
+
+- New conversation.
+- Reopen conversation.
+- Useful titles.
+- Rename where practical.
+- Delete with confirmation.
+- Empty-history state.
+- Search if implemented reliably.
+- Persistence across refreshes.
+- Graceful storage-failure handling.
+
+Do not invent conversation contents.
+
+Do not send the user's entire history to unrelated services.
+
+If local storage is used, document that data may not synchronize between devices and may be lost when local data is cleared.
+
+If server-side history is used, enforce access controls and protect user privacy.
+
+PART 8 — ATTACHMENTS AND OPTIONAL CAPABILITIES
+
+Implement attachments only when the complete NoTrack integration and backend genuinely support them.
+
+Verify:
+
+- Accepted formats.
+- Size limits.
+- Upload method.
+- Provider input schema.
+- Storage requirements.
+- Supported model capabilities.
+
+If supported, implement a small, reliable workflow for supported images or documents.
+
+Include:
+
+- File selection.
+- File validation.
+- Upload progress.
+- Remove-before-send.
+- Useful failure messages.
+- Safe handling of oversized files.
+- Correct forwarding to the provider.
+
+Never assume that every model can read images or PDFs.
+
+Do not expose an attachment button that does nothing.
+
+If a capability cannot be implemented reliably, hide it and explain the limitation in the documentation.
+
+Do not add voice input, voice output, web search, code execution, external tool calling, or other complex features unless their requirements, provider support, security, and implementation are verified.
+
+PART 9 — SETTINGS AND CONFIGURATION
+
+Create a compact settings screen.
+
+Include:
+
+- Arabic/English language selection.
+- Light/dark/system theme.
+- AI Connection settings.
+- Actual connection status.
+- Test Connection.
+- Save.
+- Reset with confirmation.
+- Basic privacy and diagnostic information.
+
+9.1 NoTrack configuration
+
+Expose the actual configuration fields required by the verified NoTrack protocol, such as:
+
+- Base URL, if configurable.
+- API key or required credential.
+- Model ID or service identifier, if required.
+- Supported optional parameters, if genuinely needed.
+
+Do not expose irrelevant settings.
+
+Provide field validation and useful error messages.
+
+After a valid configuration change, subsequent requests must use the updated configuration without rebuilding or reinstalling the frontend.
+
+Do not return a complete saved secret to the frontend. Show only masked status.
+
+9.2 Secure persistence
+
+For a shared production application:
+
+- Authenticate administrative changes.
+- Authorize configuration access.
+- Validate configuration server-side.
+- Use HTTPS.
+- Store secrets server-side.
+- Encrypt stored credentials when using persistent application storage, with encryption keys held separately in server-side secrets.
+- Keep administrative credentials out of the frontend.
+- Avoid logging secret values.
+- Protect sensitive endpoints against unauthorized access.
+- Prevent configuration changes from turning the backend into an unrestricted proxy.
+
+Use a platform-supported persistence design.
+
+For Cloudflare, verify whether the selected architecture uses Workers, Pages Functions, D1, KV, or another supported service and configure bindings correctly.
+
+For Azure, use a compatible backend and secure secret management.
+
+Do not assume deployment secrets can be dynamically edited from application code.
+
+If the environment cannot support secure persistent configuration, state the limitation and implement a safe alternative without misrepresenting browser storage as server-side encryption.
+
+9.3 URL validation and SSRF protection
+
+If users can configure a provider URL:
+
+- Require valid URL syntax.
+- Reject unsupported schemes.
+- Reject embedded credentials.
+- Restrict destinations according to the verified provider and deployment requirements.
+- Prevent access to internal services and cloud metadata endpoints.
+- Do not permit unrestricted arbitrary network requests.
+- Revalidate redirects where necessary.
+- Apply reasonable timeouts.
+
+Do not disable TLS verification to bypass connection errors.
+
+PART 10 — CENTRALIZED ERROR HANDLING
+
+Implement a shared error-handling system.
+
+Use structured internal categories such as:
+
+- "CONFIGURATION_ERROR"
+- "AUTHENTICATION_ERROR"
+- "AUTHORIZATION_ERROR"
+- "PROVIDER_ERROR"
+- "RATE_LIMIT"
+- "QUOTA_OR_BILLING_ERROR"
+- "NETWORK_ERROR"
+- "TIMEOUT_ERROR"
+- "BACKEND_ERROR"
+- "STORAGE_ERROR"
+- "DEPLOYMENT_ERROR"
+- "VALIDATION_ERROR"
+- "UNSUPPORTED_CAPABILITY"
+- "UNKNOWN_ERROR"
+
+Map the real provider responses to these categories. Do not assume every provider uses the same status codes.
+
+For each error:
+
+1. Identify the failing operation.
+2. Identify the likely failure layer.
+3. Record safe diagnostic metadata.
+4. Generate a correlation ID where appropriate.
+5. Redact sensitive information.
+6. Present an understandable localized message.
+7. Offer a useful recovery action.
+8. Preserve user input.
+9. Retry only when safe.
+10. Verify recovery when possible.
+
+Never silently replace a failed response with fabricated content.
+
+PART 11 — REQUIRED FAILURE SCENARIOS AND FIX STRATEGIES
+
+Investigate and handle all relevant scenarios below.
+
+11.1 NoTrack/API problems
+
+- Missing API credentials.
+- Invalid or revoked credentials.
+- Incorrect endpoint.
+- Incorrect base URL.
+- Invalid model ID.
+- Unsupported parameters.
+- Invalid request format.
+- Unexpected response schema.
+- Malformed JSON.
+- Empty response.
+- Authentication or authorization failure.
+- Rate limit.
+- Quota exhaustion.
+- Account restrictions.
+- Provider outage.
+- Gateway errors.
+- Context limit exceeded.
+- Unsupported attachment.
+- Unsupported streaming.
+- Interrupted streaming.
+- Connection timeout.
+- DNS failure.
+- TLS failure.
+- Network interruption.
+- Unknown provider errors.
+
+Do not automatically switch to another AI service.
+
+If a documented fallback model is explicitly configured and supported, it may be offered according to the owner's settings. Otherwise, explain the actual failure.
+
+11.2 Frontend problems
+
+- Blank screen.
+- Startup crash.
+- Missing entry point.
+- Broken imports.
+- JavaScript runtime error.
+- Unhandled promise rejection.
+- Missing assets.
+- Missing CSS.
+- Font loading failure.
+- Broken RTL.
+- Incorrect LTR.
+- Horizontal overflow.
+- Mobile keyboard hiding the composer.
+- Unresponsive controls.
+- Stuck loading state.
+- Incorrect theme contrast.
+- History not loading.
+- State corruption.
+- Refresh returning 404.
+- Excessive rendering.
+- Slow initial startup.
+- Animation causing lag.
+- Stale responses overwriting new messages.
+
+Use a framework-appropriate error boundary or equivalent recovery mechanism.
+
+Where possible, render a useful recovery screen instead of a permanent blank screen.
+
+The UI shell must work even when the AI service is not configured.
+
+11.3 Backend problems
+
+- Missing environment variables.
+- Incorrect secret names.
+- Missing runtime bindings.
+- Incorrect runtime API usage.
+- Missing database configuration.
+- Failed database connection.
+- Migration failure.
+- Failed storage reads or writes.
+- Missing encryption key.
+- Incorrect encryption configuration.
+- Route not found.
+- Unhandled exception.
+- Invalid request body.
+- Oversized payload.
+- Unauthorized access.
+- Expired session.
+- CORS misconfiguration.
+- Rate limiting.
+- Runtime initialization failure.
+- Cold-start problems.
+- Incorrect production configuration.
+
+Return safe structured errors without revealing private details.
+
+11.4 Cloudflare problems
+
+If Cloudflare is selected, inspect and verify:
+
+- Pages versus Workers architecture.
+- Build command.
+- Build output directory.
+- Entry point.
+- Compatibility settings.
+- Required bindings.
+- Required secrets.
+- Preview versus production variables.
+- Functions routing.
+- Static asset routing.
+- SPA fallback.
+- Refresh and deep-link behavior.
+- Worker runtime compatibility.
+- Database bindings and identifiers.
+- Migrations.
+- API URL.
+- CORS.
+- HTTPS.
+- Custom domain and DNS.
+- Cached stale assets.
+- Deployment quotas.
+- Deployment logs.
+- Production initialization errors.
+
+Use actual logs and official documentation to identify the cause.
+
+Do not invent configuration properties or assume that all Cloudflare products use identical settings.
+
+11.5 GitHub problems
+
+Check:
+
+- Wrong project root.
+- Missing source files.
+- Incorrect package scripts.
+- Missing dependencies.
+- Incorrect lockfile.
+- Case-sensitive path errors.
+- Incorrect build configuration.
+- Wrong repository permissions.
+- Broken deployment integration.
+- Missing ".gitignore".
+- Accidental secret commits.
+- Incompatible runtime versions.
+- Failed package installation.
+- Merge conflicts.
+- Missing public assets.
+
+Never commit real secrets.
+
+If a credential has been exposed, revoke or rotate it and address repository history and deployment exposure. Deleting the latest copy alone is insufficient.
+
+11.6 Azure or alternative hosting problems
+
+If Azure is selected, verify:
+
+- Application root.
+- API location.
+- Build output location.
+- Supported runtime.
+- Backend routes.
+- Environment settings.
+- Authentication configuration.
+- SPA routing.
+- Deployment permissions.
+- API URL.
+- CORS.
+- HTTPS.
+- Differences between local, preview, and production environments.
+
+For any alternative hosting provider, inspect its actual documentation and adapt the configuration accordingly.
+
+Do not apply platform-specific fixes blindly.
+
+11.7 Storage and conversation problems
+
+Handle:
+
+- Storage unavailable.
+- Storage quota exceeded.
+- Failed save.
+- Failed read.
+- Invalid stored data.
+- Duplicate messages.
+- Wrong conversation association.
+- Incorrect message order.
+- Deleted conversation reappearing.
+- History failing after refresh.
+- Unsaved draft lost unexpectedly.
+- Inconsistent regeneration.
+- Concurrent updates.
+- Partial response incorrectly marked complete.
+
+Use stable identifiers, appropriate validation, and consistent state transitions.
+
+11.8 Security and abuse problems
+
+Address:
+
+- Secret leakage.
+- Unauthorized settings changes.
+- Cross-user data access.
+- Unsafe HTML.
+- Malicious links.
+- Server-side request forgery.
+- Oversized uploads.
+- Malformed requests.
+- Excessive AI requests.
+- Public endpoint abuse.
+- Insecure session handling.
+- Unrestricted CORS.
+- Sensitive logs.
+- Exposed internal errors.
+- Accidental deployment of development configuration.
+
+Use appropriate authentication, authorization, validation, rate limits, and secure defaults.
+
+PART 12 — DIAGNOSTICS AND SELF-RECOVERY
+
+Build a practical diagnostic subsystem.
+
+It must help distinguish between:
+
+- Frontend failure.
+- Backend failure.
+- NoTrack configuration failure.
+- NoTrack service failure.
+- Network failure.
+- Storage failure.
+- Deployment failure.
+
+12.1 Diagnostics workflow
+
+For a failed operation:
+
+Reproduce → Gather safe evidence → Classify → Identify root cause → Apply a safe fix or recovery → Rerun the test → Report the result.
+
+During development, use the available tools to inspect logs, reproduce the error, modify code, and run the relevant tests.
+
+Do not repeatedly execute the same failed action without investigating new evidence.
+
+Do not declare a bug fixed merely because it disappeared temporarily.
+
+12.2 Safe automatic recovery
+
+When appropriate:
+
+- Retry transient failures with bounded exponential backoff and jitter.
+- Respect provider retry guidance and "Retry-After".
+- Restore the UI from a stuck loading state.
+- Cancel obsolete requests.
+- Reconnect after temporary network failures.
+- Reinitialize a failed UI component.
+- Refresh stale non-sensitive state.
+- Validate configuration before sending.
+- Identify missing environment variables by name without revealing their values.
+- Retry safe storage reads.
+- Preserve unsent messages.
+- Show a clear next step when automatic recovery fails.
+
+Do not:
+
+- Retry authentication failures endlessly.
+- Retry non-idempotent requests blindly.
+- Change the user's API key automatically.
+- Invent model IDs.
+- Switch providers without permission.
+- Disable security protections.
+- Delete user data to fix an error.
+- Run destructive migrations without authorization.
+- Modify production infrastructure blindly.
+- Rewrite the whole project for a small defect.
+
+12.3 Diagnostics screen
+
+Provide a compact diagnostics section in settings.
+
+Only display results from checks that were actually performed.
+
+Potential checks:
+
+- Frontend initialization.
+- Backend reachability.
+- Configuration completeness.
+- Storage availability.
+- NoTrack connection test.
+- Last known connection result.
+- Last error category.
+- Request ID.
+- Sanitized diagnostic report.
+
+Do not display credentials, encryption keys, private environment variables, session cookies, or raw stack traces to ordinary users.
+
+A successful backend health check does not prove that NoTrack is available.
+
+A saved API configuration does not prove that a real request works.
+
+PART 13 — HEALTH ENDPOINT AND OBSERVABILITY
+
+Implement a lightweight backend health endpoint if supported by the chosen architecture.
+
+It should:
+
+- Confirm the backend can respond.
+- Report safe application status.
+- Optionally report dependency availability.
+- Avoid exposing secrets.
+- Avoid returning internal environment values.
+- Avoid making expensive provider requests on every health check.
+
+Keep health checks distinct from the real NoTrack connection test.
+
+Use structured logs with:
+
+- Timestamp.
+- Request ID.
+- Operation.
+- Environment.
+- Response status.
+- Duration.
+- Error category.
+- Retry count where relevant.
+
+Redact credentials and private data before logging.
+
+Do not log complete user conversations or uploaded file contents by default.
+
+Apply reasonable retention limits where logging storage is used.
+
+PART 14 — SECURITY AND PRIVACY
+
+Security is mandatory, not optional.
+
+Implement the appropriate protections for the actual architecture:
+
+- HTTPS.
+- Server-side shared credentials.
+- Input validation.
+- Safe output rendering.
+- Authorization for sensitive actions.
+- Appropriate session handling.
+- CSRF protection where relevant.
+- Rate limiting.
+- Payload limits.
+- Safe URL validation.
+- SSRF protection.
+- Secure secret storage.
+- Secret redaction.
+- Appropriate CORS rules.
+- Dependency checks.
+- Safe error responses.
+- Access controls for private conversations.
+- No public secrets.
+- No unnecessary tracking.
+
+Do not add third-party analytics unless explicitly authorized.
+
+Do not introduce paid services or recurring charges without disclosing the requirement.
+
+If a security control depends on unavailable infrastructure, explain the limitation and do not pretend it is active.
+
+PART 15 — PERFORMANCE AND MOBILE-FIRST QUALITY
+
+Optimize for Android browsers, tablets, and low- to mid-range devices.
+
+Requirements:
+
+- Fast initial render.
+- Lightweight animation.
+- Efficient message rendering.
+- Reasonable memory use.
+- Responsive layouts.
+- Correct virtual keyboard handling.
+- No horizontal overflow.
+- No unnecessary background video.
+- No oversized assets.
+- No excessive dependencies.
+- Efficient font loading.
+- Reasonable network timeouts.
+- No permanent loading states.
+- No repeated duplicate requests.
+- Proper handling of large responses.
+- Correct touch targets.
+- Useful feedback on slow networks.
+
+Do not cache private AI responses in public caches.
+
+Do not sacrifice accessibility or error handling for performance.
+
+PART 16 — LANGUAGE, RTL, AND LTR
+
+Arabic must be the default language.
+
+Implement proper localization for all visible application messages.
+
+Use a consistent translation structure rather than scattering text strings throughout components.
+
+Support:
+
+- Arabic interface.
+- English interface.
+- RTL layout.
+- LTR layout.
+- Mixed Arabic-English content.
+- Correct punctuation.
+- Correct icon direction.
+- Localized validation errors.
+- Localized connection errors.
+- Localized loading messages.
+- Appropriate dates and times.
+- Correct Markdown direction.
+- Readable code blocks.
+
+Changing the language must not erase the current conversation or reset application state.
+
+PART 17 — THEMES AND ACCESSIBILITY
+
+Provide:
+
+- Light theme.
+- Dark theme.
+- System theme.
+- Persistent theme preference.
+- Appropriate contrast.
+- Visible focus states.
+- Keyboard navigation.
+- Accessible labels.
+- Dialog focus management.
+- Screen-reader status announcements where appropriate.
+- Reduced-motion support.
+- Readable text sizes.
+- Usable touch targets.
+
+Ensure the design works in every theme and language.
+
+Do not use color alone to communicate errors or success.
+
+PART 18 — AUTOMATED TEST SUITE
+
+Create tests appropriate to the selected framework.
+
+Run actual tests whenever the environment supports them.
+
+18.1 Build and startup tests
+
+Verify:
+
+- Dependencies install.
+- Production build completes.
+- Application entry point loads.
+- UI renders without AI credentials.
+- Missing optional services do not crash startup.
+- No essential startup runtime errors occur.
+- Static assets resolve correctly.
+
+18.2 NoTrack integration tests
+
+Test:
+
+- Correct request structure.
+- Correct authentication behavior.
+- Correct response parsing.
+- Valid response.
+- Invalid credentials.
+- Invalid model.
+- Rate limit.
+- Provider outage.
+- Timeout.
+- Malformed response.
+- Empty response.
+- Unsupported capability.
+- Streaming behavior if supported.
+- Interrupted response.
+- Safe error normalization.
+
+Use mocks for predictable unit tests.
+
+When real credentials and network access are available, perform a genuine integration test.
+
+Clearly label mocked and live results.
+
+18.3 Backend and configuration tests
+
+Test:
+
+- Health endpoint.
+- Missing configuration.
+- Invalid configuration.
+- Valid configuration.
+- Authorization failure.
+- Authorized settings change.
+- Secret masking.
+- Secure persistence.
+- Encryption behavior if implemented.
+- Missing encryption key.
+- Invalid URL.
+- Unsafe URL rejection.
+- Storage failure.
+- Request validation.
+- Rate limiting.
+- Configuration update without frontend rebuild.
+
+18.4 UI tests
+
+Test:
+
+- Home screen.
+- Composer.
+- Sending.
+- Loading state.
+- Error state.
+- Retry.
+- Copy.
+- New conversation.
+- History.
+- Rename and delete where implemented.
+- Editing and resending.
+- Theme switching.
+- Language switching.
+- RTL/LTR.
+- Empty states.
+- Missing provider configuration.
+- Keyboard navigation.
+- Reduced motion.
+- Mobile layout.
+
+18.5 Deployment tests
+
+Verify:
+
+- Production build command.
+- Output directory.
+- Backend entry point.
+- Environment variable names.
+- Runtime bindings.
+- Database migrations if applicable.
+- Production API URL.
+- SPA refresh behavior.
+- Deep links.
+- Asset paths.
+- No hardcoded localhost in production.
+- No secrets in public bundles.
+- Correct production and preview configuration.
+
+18.6 Regression tests
+
+After a repair:
+
+1. Rerun the test that exposed the failure.
+2. Rerun related tests.
+3. Rebuild production output.
+4. Inspect for new errors.
+5. Verify that existing functionality remains intact.
+6. Record the evidence.
+
+Do not claim tests passed unless they were executed and the results support the claim.
+
+PART 19 — GITHUB AND PROJECT FILES
+
+Prepare the actual project repository with the necessary files.
+
+Depending on the selected stack, include:
+
+- Source files.
+- Package manifest.
+- Lockfile.
+- Build scripts.
+- Test scripts.
+- Backend routes.
+- Provider adapter.
+- Configuration validation.
+- Error-handling utilities.
+- Diagnostic utilities.
+- Database schema and migrations if required.
+- ".gitignore".
+- Safe environment example file.
+- Deployment configuration.
+- README.
+- Automated tests.
+
+Do not create unnecessary files just to make the repository look larger.
+
+Never include real secrets in:
+
+- Source code.
+- ".env.example".
+- README.
+- Public GitHub history.
+- Frontend build output.
+- Screenshots.
+- Test reports.
+
+If a secret is exposed, revoke or rotate it and address the exposure. Deleting the latest copy alone is not sufficient.
+
+PART 20 — CLOUDFLARE DEPLOYMENT
+
+Use Cloudflare as the primary target if the actual project supports the required architecture.
+
+Choose the appropriate option after inspection:
+
+- Cloudflare Pages with compatible Functions.
+- Cloudflare Workers with an appropriate static asset strategy.
+- Another officially supported architecture only if justified.
+
+Do not assume that these options use identical configurations.
+
+Verify:
+
+- Build command.
+- Output directory.
+- Entry point.
+- Runtime compatibility.
+- Required bindings.
+- Environment variable names.
+- Secret configuration.
+- Database configuration.
+- Routing.
+- Static assets.
+- SPA fallback.
+- API routes.
+- Production environment.
+- Preview environment.
+- Domain and HTTPS requirements.
+
+Configure required secrets through the appropriate platform interface.
+
+If a database is required, create a valid schema and documented migrations.
+
+Do not create fake health endpoints that always return success.
+
+Do not claim deployment succeeded without actual deployment evidence.
+
+After deployment, when access is available:
+
+1. Open the deployed application.
+2. Verify that the UI renders.
+3. Verify static assets.
+4. Test refresh and direct routes.
+5. Test backend health.
+6. Test configuration validation.
+7. Perform a real NoTrack request if valid credentials are available.
+8. Inspect logs if a step fails.
+9. Fix the root cause where possible.
+10. Rerun the failed check.
+
+If deployment credentials are unavailable, prepare the project and provide exact deployment instructions.
+
+PART 21 — AZURE AND OTHER HOSTING PLATFORMS
+
+Azure is an alternative, not a reason to mix incompatible deployment assumptions into the Cloudflare implementation.
+
+If Azure is selected, verify:
+
+- App location.
+- API location.
+- Build output.
+- Supported runtime.
+- Backend architecture.
+- Environment variables.
+- Secret storage.
+- Authentication.
+- Routing.
+- HTTPS.
+- CORS.
+- Production and staging differences.
+
+For another platform, inspect the official documentation and implement the configuration that matches the actual project.
+
+Do not invent deployment commands or settings.
+
+PART 22 — FAILURE RECOVERY AND PROJECT REPAIR LOOP
+
+Whenever a development, build, test, or deployment failure occurs, follow this sequence:
+
+Step 1 — Capture the evidence.
+
+Read the real error output, logs, failing command, or reproduced behavior.
+
+Step 2 — Classify the problem.
+
+Determine whether it is caused by source code, dependency versions, provider configuration, credentials, network access, storage, runtime compatibility, or deployment configuration.
+
+Step 3 — Identify the root cause.
+
+Do not assume that the first visible error is the underlying problem.
+
+Step 4 — Make the smallest safe correction.
+
+Avoid unrelated rewrites and destructive changes.
+
+Step 5 — Rerun the failed operation.
+
+Verify whether the correction worked.
+
+Step 6 — Run regression checks.
+
+Ensure the correction did not break other features.
+
+Step 7 — Document unresolved blockers.
+
+If the failure depends on unavailable credentials, permissions, external infrastructure, or an inaccessible provider, explain exactly what remains.
+
+If the same repair fails repeatedly, do not blindly repeat it. Reassess the evidence and choose a different justified approach.
+
+PART 23 — REQUIRED FINAL ACCEPTANCE CRITERIA
+
+The application is ready only when every applicable criterion has been checked.
+
+Product
+
+- The app renders without an API key.
+- The UI is Arabic-first.
+- English is supported.
+- RTL/LTR behavior is correct.
+- The design is distinctive.
+- Animations are polished and accessible.
+- Essential controls work.
+- No fake features remain.
+
+AI
+
+- NoTrack.ai is the actual primary production integration.
+- The implementation follows verified documentation.
+- The model/service identifier is correct.
+- Real requests work when credentials and access are available.
+- Configuration changes take effect without rebuilding the frontend.
+- Errors are handled correctly.
+- Mock results are never misrepresented as live results.
+
+Security
+
+- Shared credentials are not exposed publicly.
+- Administrative configuration is protected.
+- Inputs are validated.
+- Secrets are redacted.
+- URL validation and SSRF protections are implemented where relevant.
+- Private data is appropriately protected.
+
+Reliability
+
+- Missing configuration produces a useful state.
+- Network failure does not permanently freeze the UI.
+- Failed requests preserve user input.
+- Loading states always recover.
+- Diagnostics distinguish the major failure domains.
+- Recovery behavior is tested.
+- Conversation state remains consistent.
+
+Engineering
+
+- The production build succeeds.
+- Relevant automated tests run.
+- Regression tests are performed after fixes.
+- Deployment configuration matches the selected platform.
+- Repository contains no accidental secrets.
+- Documentation matches the implementation.
+
+Deployment
+
+- Deployment is performed only when authorized and possible.
+- The live app is verified when access is available.
+- Live provider integration is verified separately from mock testing.
+- Remaining blockers are explicitly disclosed.
+
+If a criterion cannot be completed because a required credential, permission, service, or infrastructure component is unavailable, complete everything independent of that blocker and report the exact remaining action.
+
+PART 24 — IMPLEMENTATION ORDER
+
+Execute the project in this order:
+
+1. Inspect the environment and repository.
+2. Read and validate the supplied NoTrack integration.
+3. Identify missing configuration and capabilities.
+4. Choose the architecture and deployment target.
+5. Create or preserve the project structure.
+6. Build the visual system and responsive application shell.
+7. Implement Arabic/English and RTL/LTR.
+8. Implement the actual NoTrack adapter.
+9. Implement the backend and secure configuration.
+10. Implement conversation and history.
+11. Implement settings and diagnostics.
+12. Implement centralized error handling and safe recovery.
+13. Implement automated tests.
+14. Run tests and fix failures.
+15. Build production output.
+16. Check for secrets and incorrect configuration.
+17. Prepare deployment.
+18. Deploy if authorized and possible.
+19. Verify the live deployment if access is available.
+20. Produce an evidence-based completion report.
+
+Do not stop after the first page.
+
+Do not stop after creating the files.
+
+Do not stop after the first successful build.
+
+Do not claim completion while major, reproducible failures remain.
+
+PART 25 — REQUIRED PROJECT HANDOFF
+
+At the end, provide:
+
+1. A summary of implemented functionality.
+2. The actual technology stack.
+3. The actual NoTrack protocol and model/service identifier verified.
+4. The main project files created or changed.
+5. The commands and tests executed.
+6. Actual test results.
+7. Whether NoTrack was tested using a real request.
+8. Whether tests used mocks.
+9. Deployment status.
+10. Required environment variables and platform bindings, without secret values.
+11. Remaining limitations and unresolved errors.
+12. Exact manual steps still required.
+13. A practical troubleshooting guide.
+14. Any important costs or external services required.
+
+Use accurate status labels:
+
+- Implemented.
+- Build tested.
+- Mock tested.
+- Live provider tested.
+- Deployed.
+- Production verified.
+
+Never confuse these statuses.
+
+PART 26 — FINAL OWNER CONFIGURATION AND INTEGRATION CODE
+
+This section is the authoritative source for the owner-provided NoTrack integration.
+
+Read this entire section before implementing the provider adapter.
+
+Do not invent values for blank fields.
+
+If supplied code contradicts official documentation, identify the discrepancy and use verified, compatible behavior rather than silently choosing an unsupported implementation.
+
+If the supplied code is incomplete, identify the missing information and continue with all independent implementation tasks.
+
+OFFICIAL NOTRACK.AI DOCUMENTATION URL:
+
+[PASTE THE OFFICIAL DOCUMENTATION URL HERE]
+
+OFFICIAL API OR INTEGRATION URL, IF KNOWN:
+
+[PASTE THE VERIFIED URL HERE]
+
+MODEL ID OR SERVICE IDENTIFIER, IF REQUIRED:
+
+[PASTE THE EXACT VALUE HERE]
+
+SDK, FRAMEWORK, OR PROTOCOL REQUIRED BY NOTRACK:
+
+[PASTE HERE, IF APPLICABLE]
+
+ADDITIONAL NON-SECRET CONFIGURATION:
+
+[PASTE HERE]
+
+COMPLETE NOTRACK INTEGRATION CODE / OFFICIAL EXAMPLE / SETUP INSTRUCTIONS:
+
+[PASTE THE COMPLETE CODE OR OFFICIAL INTEGRATION EXAMPLE HERE]
+
+ADDITIONAL PROJECT OR DEPLOYMENT REQUIREMENTS:
+
+[PASTE HERE]
+
+PRIVATE API KEY OR CREDENTIAL:
+
+[CONFIGURE THIS THROUGH A PRIVATE BACKEND OR THE HOSTING PLATFORM'S SECRET SETTINGS. NEVER COMMIT A REAL SECRET TO PUBLIC SOURCE CODE.]
+
+If the supplied code already contains the complete, correct integration, adapt and reuse it rather than inventing a separate protocol.
+
+If no official documentation or working integration code is supplied, do not fabricate one. Complete the independent parts of Ja3far, prepare the provider adapter interface, and clearly identify what is needed to finish the real integration.
+
+FINAL EXECUTION COMMAND
+
+Now begin building Ja3far AI from the actual project state.
+
+Inspect first. Verify NoTrack.ai. Implement the real application. Test it. Diagnose and repair failures. Verify the production build. Prepare the correct deployment. Deploy only when authorized and technically possible.
+
+Do not return only a plan, mockup, or tutorial.
+
+Perform every step that the available environment genuinely permits, and report the results honestly.

@@ -1,0 +1,6 @@
+{
+  "name": "Ja3far AI | جعفر",
+  "description": "المساعد الذكي المستقل 'جعفر' مع واجهة عربية راقية وفائقة الخصوصية، دعم كامل للهجة المصرية، البحث المباشر، وتحليل الملفات.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
